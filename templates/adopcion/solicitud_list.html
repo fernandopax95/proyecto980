@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div style="text-align: center;">
+    <h1>Listado de Solicitudes</h1>
+</div>
+
+<div style="text-align: right;">
+    <a class="btn btn-dark" href="{% url 'mascota_listar_imagenes'%}">Mascotas</a>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>No. Solicitud</td>
+			<td>Adoptante</td>
+			<td>No. Mascotas</td>
+			<td>Razones</td>
+			<td>Acciones</td>
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for solicitud in object_list %}
+		<tr>
+			<td>{{ solicitud.id }}</td>
+			<td>{{ solicitud.persona.nombre }} {{solicitud.persona.apellidos}}</td>
+			<td>{{ solicitud.numero_mascotas }}</td>
+			<td>{{ solicitud.razones }}</td>
+			
+			<td>
+				<a class="btn btn-dark" href="{% url 'solicitud_editar' solicitud.id%}">Editar</a>
+				<a class="btn btn-danger" href="{% url 'solicitud_eliminar' solicitud.id%}">Eliminar</a>
+			</td>
+		</tr>
+		{% endfor %}
+		
+		{% else %}
+		<h1>No hay registros de solicitudes</h1>
+		{% endif %}
+	</tbody>
+</table> 
+
+{% endblock%}
